@@ -14,7 +14,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class Article {
-    // 왜 NoArgsConstructor 필요??
+    // 왜 NoArgsConstructor 필요?? -> JPA에서 기본적으로 디폴트 생성자 요구
     @Id
     @GeneratedValue
     private Long id;

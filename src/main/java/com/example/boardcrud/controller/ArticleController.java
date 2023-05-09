@@ -3,10 +3,14 @@ package com.example.boardcrud.controller;
 import com.example.boardcrud.dto.ArticleForm;
 import com.example.boardcrud.entity.Article;
 import com.example.boardcrud.repository.ArticleRepository;
+import java.util.Optional;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -34,10 +38,21 @@ public class ArticleController {
         Article saved = articleRepository.save(article);
         log.info("saved={}", saved);
 
-
         return "";
     }
 
+    @GetMapping("articles/{id}")
+    public String getArticle(@PathVariable Long id, Model model) {
+        log.info("id={}", id);
+        // 1. id로 데이터를 가져온다.
+//        Optional<Article> article = articleRepository.findById(id);
+        Article articleEntity = articleRepository.findById(id).orElse(null);
 
+        // 2. 가져온 데이터를 모델에 담아줌
+        model.addAttribute("article", articleEntity);
+
+        // 3. 보여줄 페이지 설정
+        return "articles/show";
+    }
 
 }
