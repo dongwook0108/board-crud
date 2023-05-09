@@ -3,8 +3,7 @@ package com.example.boardcrud.controller;
 import com.example.boardcrud.dto.ArticleForm;
 import com.example.boardcrud.entity.Article;
 import com.example.boardcrud.repository.ArticleRepository;
-import java.util.Optional;
-import lombok.Getter;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -55,4 +54,15 @@ public class ArticleController {
         return "articles/show";
     }
 
+    @GetMapping("/articles")
+    public String allArticles(Model model) {
+        //1. 모든 Article 가져온다
+        List<Article> articleEntityList = articleRepository.findAll();
+
+        //2. 가져온 Article 묶음으로 전달
+        model.addAttribute("articleList", articleEntityList);
+
+        //3. 뷰 페이지 설정
+        return "articles/all";
+    }
 }
