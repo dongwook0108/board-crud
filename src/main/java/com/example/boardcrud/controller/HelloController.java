@@ -13,6 +13,9 @@ public class HelloController {
         return "hello";
     }
 
-
-
+    @GetMapping("/bye")
+    public String bye(Model model) {
+        model.addAttribute("nickname", "동욱");
+        return "goodbye";
+    }
 }
