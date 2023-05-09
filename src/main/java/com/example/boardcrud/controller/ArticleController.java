@@ -4,6 +4,7 @@ import com.example.boardcrud.dto.ArticleForm;
 import com.example.boardcrud.entity.Article;
 import com.example.boardcrud.repository.ArticleRepository;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -65,4 +66,19 @@ public class ArticleController {
         //3. 뷰 페이지 설정
         return "articles/index";
     }
+
+    @GetMapping("/articles/{id}/edit")
+    public String editPage(@PathVariable Long id, Model model) {
+
+        // 수정할 데이터 가져오기
+        Article articleEntity = articleRepository.findById(id).orElse(null);
+
+        // 모델에 데이터 등록
+        model.addAttribute("article", articleEntity);
+
+        // 뷰 페이지 설정
+        return "articles/edit";
+    }
+
+
 }
