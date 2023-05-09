@@ -37,7 +37,7 @@ public class ArticleController {
         Article saved = articleRepository.save(article);
         log.info("saved={}", saved);
 
-        return "";
+        return "redirect:/articles/" + saved.getId();
     }
 
     @GetMapping("articles/{id}")
@@ -63,6 +63,6 @@ public class ArticleController {
         model.addAttribute("articleList", articleEntityList);
 
         //3. 뷰 페이지 설정
-        return "articles/all";
+        return "articles/index";
     }
 }
