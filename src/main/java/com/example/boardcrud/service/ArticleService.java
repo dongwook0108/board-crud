@@ -4,7 +4,6 @@ import com.example.boardcrud.dto.ArticleForm;
 import com.example.boardcrud.entity.Article;
 import com.example.boardcrud.repository.ArticleRepository;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
