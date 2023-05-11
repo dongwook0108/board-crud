@@ -1,8 +1,10 @@
 package com.example.boardcrud.controller;
 
 import com.example.boardcrud.dto.ArticleForm;
+import com.example.boardcrud.dto.CommentDto;
 import com.example.boardcrud.entity.Article;
 import com.example.boardcrud.repository.ArticleRepository;
+import com.example.boardcrud.service.CommentService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +21,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class ArticleController {
 
     private final ArticleRepository articleRepository;
+
+    private final CommentService commentService;
 
     @GetMapping("/articles/new")
     public String newArticleForm() {
@@ -47,9 +51,12 @@ public class ArticleController {
         // 1. id로 데이터를 가져온다.
 //        Optional<Article> article = articleRepository.findById(id);
         Article articleEntity = articleRepository.findById(id).orElse(null);
+        List<CommentDto> commentDtos =commentService.comments(id);
+
 
         // 2. 가져온 데이터를 모델에 담아줌
         model.addAttribute("article", articleEntity);
+        model.addAttribute("commentDtos", commentDtos);
 
         // 3. 보여줄 페이지 설정
         return "articles/show";
